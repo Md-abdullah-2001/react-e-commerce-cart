@@ -1,0 +1,23 @@
+
+.navbar{
+    height: 80px;
+    background-color: #1C2B35;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 40px;
+    padding-right: 80px;
+ 
+}
+.navbar a{
+   
+    color: orange;
+    margin-right: 38px;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.navbar a:hover{
+    color: #fff;
+    transition: 0.5s;
+}
