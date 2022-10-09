@@ -1,25 +1,34 @@
 import React, { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
+
+import { addToDb, getStoredData } from "../../utilities/fakedb.js";
+import Cart from "../Cart/Cart.js";
 import Product from "../Product/Product.js";
 import "./Shop.css";
 
 const Shop = () => {
-  const [products, srtProducts] = useState([]);
+  const products = useLoaderData();
+  // console.log(products);
+
   const [cart, setCart] = useState([]);
-  useEffect(() => {
-    fetch("products.json")
-      .then((res) => res.json())
-      .then((data) => srtProducts(data));
-  });
+
+  // useEffect(() => {
+  // const loadStored = getStoredData();
+  // for (const id in loadStored) {
+  //   const addedProduct = products.find((product) => product.id === id);
+  //   // console.log(addedProduct);
+  //   }
+  // }, [products]);
 
   const handleAddToCart = (product) => {
-    // console.log(product);
     const newCart = [...cart, product];
     setCart(newCart);
+    addToDb(product.id);
   };
   return (
-    <div className="shop-field">
-      <div className="headline">
-        <h2>Products List</h2>
+    <div>
+      <h2 className="headline">Products List</h2>
+      <div className="shop-field">
         <div className="product-container">
           {products.map((product) => (
             <Product
@@ -29,11 +38,10 @@ const Shop = () => {
             ></Product>
           ))}
         </div>
-      </div>
 
-      <div className="product-summary">
-        <h2>Orders Summary</h2>
-        <p>Total Product Added: {cart.length}</p>
+        <div className="product-summary">
+          <Cart cart={cart}></Cart>
+        </div>
       </div>
     </div>
   );
